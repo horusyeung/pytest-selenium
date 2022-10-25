@@ -1,0 +1,3 @@
+creation_rules:
+  - encrypted_regex: '^'
+    pgp: '0FE7D11629CA5159ACC07DA88603873A078DC1C4'

@@ -1,0 +1,22 @@
+### macOS ###
+# General
+.DS_Store
+
+### Python ###
+__pycache__/
+
+# Environments
+venv/
+
+
+# Pycharm
+.idea/
+
+# secrets
+secrets.env
+
+# Allure
+test_report/
+
+# Pytest
+.pytest_cache/

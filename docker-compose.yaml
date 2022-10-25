@@ -1,0 +1,33 @@
+# To execute this docker-compose yml file use docker-compose -f <file_name> up
+# Add the "-d" flag at the end for detached execution
+# This three images are compatible with amd64, arm64 and linux
+# Please open VNC viewer (127.0.0.1:9001, 127.0.0.1:9002) for debugging and testing
+version: "3"
+services:
+  seleniarm-hub:
+    image: seleniarm/hub:4.1.2-20220222
+    container_name: selenium-hub
+    ports:
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
+  chrome:
+    image: seleniarm/node-chromium:4.1.2-20220222
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "9001:5900"
+  firefox:
+    image: seleniarm/node-firefox:4.1.2-20220222
+    depends_on:
+      - seleniarm-hub
+    environment:
+      - SE_EVENT_BUS_HOST=seleniarm-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+    ports:
+      - "9002:5900"
